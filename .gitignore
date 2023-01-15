@@ -1,4 +1,4 @@
-*.exe
+!*/Brute_force/*.exe
 .metadata
 bin/
 tmp/
