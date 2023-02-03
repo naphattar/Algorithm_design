@@ -2,12 +2,7 @@
 using namespace std;
 long long v[1001];
 int n,m;
-/*
-testcase 1
-4 5
--2 1 5 6
-1 3 5 6 7
-*/
+
 void solve(long long q){
     bool found = false;
     if(q < v[0]+v[1]+v[2] || q > v[n-3]+v[n-2]+v[n-1]){
