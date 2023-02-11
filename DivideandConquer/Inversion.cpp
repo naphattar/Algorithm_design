@@ -2,7 +2,6 @@
 #include<vector>
 using namespace std;
 int n,cnt = 0;
-
 /*
 testcase 1:
 4
@@ -11,38 +10,31 @@ testcase 1:
 testcase 2:
 6
 1 5 4 2 3 -1
-
 */
-void merge(vector<int> &v,int l,int mid,int r,vector<int> &tmp){
-    int bi = l;
-    int ci = mid+1; 
-    for(int i = l;i<=r;i++){
-        if(ci > r){
-            tmp[i] = v[bi++];
-            continue;
+int solve(int l,int r,vector<int> &v, vector<int> &tmp){
+    if(l == r){
+        return 0;
+    }
+    int mid = (l+r)/2;
+    int result = solve(l,mid,v,tmp);
+    result = result + solve(mid+1,r,v,tmp);
+    int pt1 = l,pt2 = mid+1,pt = 0;
+    while(pt1 <= mid || pt2 <= r ){
+        if(pt1 > mid){
+            tmp[pt++] = v[pt2++];
+        }else if(pt2 > r){
+            tmp[pt++] = v[pt1++];
+        }else{
+            if(v[pt1] > v[pt2]){
+                tmp[pt++] = v[pt2++];
+                result += mid+1-pt1;
+            }else{
+                tmp[pt++] = v[pt1++];
+            }
         }
-        if(bi > mid){
-            tmp[i] = v[ci++];
-            continue;
-        }
-        tmp[i] = (v[bi] < v[ci]) ? v[bi++] : v[ci++];
     }
-    for(int i = l;i<=r;i++){
-        v[i] = tmp[i];
-    }
-    for(auto elm : v){
-        cout << elm << " ";
-    }
-    
-    cout << cnt << "\n";
-}
-void merge_sort(vector<int> &v,int l,int r,vector<int> &tmp){
-    if(l < r){
-        int mid = (l+r)/2;
-        merge_sort(v,l,mid,tmp);
-        merge_sort(v,mid+1,r,tmp);
-        merge(v,l,mid,r,tmp);
-    }
+    for(int i = 0;i<pt;i++) v[l+i] = tmp[i];
+    return result;
 }
 int main(){
     ios_base::sync_with_stdio(false),cin.tie(nullptr);
@@ -51,12 +43,7 @@ int main(){
     for(int i = 0;i<n;i++){
         cin >> v[i];
     }
-    merge_sort(v,0,v.size()-1,tmp);
-    /*
-    for(auto t : v){
-        cout << t << " ";
-    }
-    */
+    cnt = solve(0,n-1,v,tmp);
     cout << cnt;
     return 0;
 
