@@ -1,23 +1,26 @@
 #include<iostream>
 #include<vector>
+#include<cmath>
 using namespace std;
 
-long long  getlen(int n){
-    if(n <= 1){
-        return 1;
-    }
-    return 2*getlen(n/2)+1;
+long long getlen(long long x){
+    int exp = log2(x);
+    long long sz = 2*pow(2,exp)-1;
+    return sz;
 }
 
 long long solve(long long x,long long l,long long r){
-
-    long long n = getlen(x);
-    if(r - l < 0){
+    if(r < l){
         return 0;
     }
-    long long mid = n/2;
-    return x%2 + solve(x/2,l,min(r,mid-1))+solve(x/2,0,r-mid-1);
-
+    if(r == l){
+        return x%2 ? 1 : 0;
+    }
+    long long sz = getlen(x);
+    long long mid = (sz-1)/2;
+    long long ans = solve(x/2,l,min(mid-1,r))+solve(x/2,0,r-mid-1);
+    ans = x%2 ? ans+1 : ans;
+    return ans;
 }
 
 int main(){

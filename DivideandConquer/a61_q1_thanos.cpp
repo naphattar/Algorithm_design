@@ -1,4 +1,3 @@
-#include<bits/stdc++.h>
 #include<iostream>
 #include<vector>
 #include<algorithm>
@@ -20,12 +19,6 @@ long long solve(long long l,long long r){
 }
 int main(){
     ios_base::sync_with_stdio(false),cin.tie(nullptr);
-    
-    ifstream in("input.txt");
-    cin.rdbuf(in.rdbuf());
-    ofstream out("output.txt");
-    cout.rdbuf(out.rdbuf());
-    
     cin >> p >> k >> a >> b;
     for(int i = 0;i<k;i++){
         cin >>avenger[i];
