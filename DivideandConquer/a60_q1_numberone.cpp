@@ -13,13 +13,15 @@ long long solve(long long x,long long l,long long r){
     if(r < l){
         return 0;
     }
-    if(r == l){
-        return x%2 ? 1 : 0;
+    if(x <= 1){
+        return x;
     }
     long long sz = getlen(x);
     long long mid = (sz-1)/2;
-    long long ans = solve(x/2,l,min(mid-1,r))+solve(x/2,0,r-mid-1);
-    ans = x%2 ? ans+1 : ans;
+    long long nr = min(mid-1,r);
+    long long nl = (l-mid-1 > 0) ? l-mid-1 : 0;
+    long long ans = solve(x/2,l,nr)+solve(x/2,nl,r-mid-1);
+    if(l <= mid && r >= mid) ans += (x%2); 
     return ans;
 }
 
