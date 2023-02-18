@@ -5,24 +5,29 @@ using namespace std;
 int main(){
     ios_base::sync_with_stdio(false),cin.tie(nullptr);
     int n,m;
+    cin >> n >> m;
     string x,y;
     cin >> x >> y;
-    n = x.length();
-    m = y.length();
     int dp[n+1][m+1];
+    string words[n+1][m+1];
     for(int i = 0;i<=n;i++){
         for(int j = 0;j<=m;j++){
+            //cin >> dp[i][j];
             if(i == 0 || j == 0){
-                dp[i][j] = 0;
+                words[i][j] = "";
             }else{
                 if(x[i-1] == y[j-1]){
-                    dp[i][j] = dp[i-1][j-1] + 1;
+                    words[i][j] = words[i-1][j-1] + x[i-1];
                 }else{
-                    dp[i][j] = max(dp[i-1][j],dp[i][j-1]);
+                    if(words[i-1][j] > words[i][j-1]){
+                        words[i][j] = words[i-1][j];
+                    }else{
+                        words[i][j] = words[i][j-1];
+                    }
                 }
             }
         }
     }
-    cout <<dp[n][m];
+    cout << words[n][m];
     return 0;
 }
