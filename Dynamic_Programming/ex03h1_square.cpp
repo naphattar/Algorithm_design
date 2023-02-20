@@ -12,27 +12,33 @@ int main(){
         }
     }
     int left[r][c] = {{0}};
-    int down[r][c] = {{0}};
+    int up[r][c] = {{0}};
     for(int i = 0;i<r;i++){
-        left[i][c-1] = arr[i][c-1] == '1' ? 1 : 0 ;
-        for(int j = c-2;j>=0;j--){
-            left[i][j] = arr[i][j+1] == '1' ? left[i][j+1]+1 : 0 ;
+        for(int j = 0;j<c;j++){
+            if(j == 0) left[i][j] = arr[i][j] == '1' ? 1 : 0;
+            else{
+                left[i][j] = arr[i][j] == '1' ? left[i][j-1]+1 : 0;
+            }
         }
     }
-    for(int i = r-1;i>=0;i--){
+    for(int j = 0;j<c;j++){
+        for(int i = 0;i<r;i++){
+            if( i == 0) up[i][j] = arr[i][j] == '1' ? 1 : 0;
+            else{
+                up[i][j] = arr[i][j] == '1' ? up[i-1][j]+1 : 0;
+            }
+        }
+    }
+    int dp[r][c] = {{0}};
+    for(int i = 0;i<r;i++){
         for(int j = 0;j<c;j++){
-            if(i == r-1){
-                down[i][j] = arr[i][j] == '1' ? 1: 0 ;
+            if(i*j == 0) dp[i][j] = arr[i][j] == '1' ? 1 : 0;
+            else if(left[i][j] > dp[i-1][j-1] && up[i][j] > dp[i-1][j-1]){
+                dp[i][j] = dp[i-1][j-1]+1;
             }else{
-                down[i][j] = arr[i][j] == '1' ? down[i+1][j]+1 : 0 ;
+                dp[i][j] = min(left[i][j],up[i][j]);
             }
-        }
-    }
-    for(int i = 0;i<r;i++){
-        for(int j = 0;j<c;j++){
-            if(min(left[i][j],down[i][j]) > maxans){
-                maxans = min(left[i][j],down[i][j]);
-            }
+            maxans = max(maxans,dp[i][j]);
         }
     }
     cout << maxans;

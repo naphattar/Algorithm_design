@@ -13,7 +13,7 @@ int main(){
         diff[i] = a-b;
         suma += a;
     }
-    sort(diff.begin(),diff.end()); // diff.sort()
+    sort(diff.begin(),diff.end());
     long long needed = suma-m;
     if(needed <= 0){
         cout << cnt;
