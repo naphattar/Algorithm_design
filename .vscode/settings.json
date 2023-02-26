@@ -9,5 +9,8 @@
         "iostream": "cpp",
         "utility": "cpp"
     },
-    "C_Cpp.errorSquiggles": "disabled"
+    "C_Cpp.errorSquiggles": "disabled",
+    "files.watcherExclude": {
+        "**/target": true
+    }
 }

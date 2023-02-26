@@ -22,7 +22,6 @@ int main(){
                dp[i][0] = dp[i-1][0];
         }else{
             dp[i][0].first = 0;
-            dp[]
         }
         for(int j = 1;j<=k;j++){
             if(i - dp[i-1][j].second.first < m){
@@ -32,6 +31,10 @@ int main(){
             dp[i][j].first += dp[i-1][j-1].first;
             dp[i][j].second.first= i;
             dp[i][j].second.second = dp[i-1][j-1].second.second == 1 ? 0 : 1;
+            if(j >=i){
+                dp[i][j].first = 0;
+                dp[i][j].second = make_pair(-1*(2e9),0);
+            }
         }
     }
     for(int i = 0;i<=n;i++){
