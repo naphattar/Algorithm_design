@@ -1,25 +1,24 @@
-#include<bits/stdc++.h>
+#include<iostream>
 #include<algorithm>
 using namespace std;
 int main(){
-    ios_base::sync_with_stdio(false),cin.tie(nullptr);
-    int n,q,a,b;
+    ios_base::sync_with_stdio(false),cin.tie(nullptr),cout.tie(nullptr);
+    int n,q;
     long long c;
     cin >> n >> q;
-    vector<long long> dp(n,0);
-    vector<pair<int,int>> arr(n+1,make_pair(0,0));
+    long long dp[n] = {0};
+    pair<int,int> arr[n+1];
+    arr[0] = make_pair(0,0);
     for(int i = 0;i<n;i++){
-        cin >> a >> b;
-        arr[i].first = a;
-        arr[i].second = b;
+        cin >> arr[i].first >> arr[i].second;
     }
-    sort(arr.begin(),arr.end());
+    sort(arr,arr+n+1);
     for(int i = 1;i<n;i++){
         dp[i] = dp[i-1]+arr[i].second;
     }
     while(q--){
         cin >> c;
-        int pos = lower_bound(dp.begin(),dp.begin()+n,c) - dp.begin();
+        int pos = lower_bound(dp,dp+n,c) - dp;
         cout << arr[pos].first << "\n";
     }
     return 0;

@@ -9,32 +9,14 @@ int main(){
     long long qs[n+1] = {0};
     for(int i = 1;i<=n;i++){
         cin >> arr[i];
-        qs[i] = qs[i-1]+arr[i];
+        qs[i] = qs[i-1]+arr[i]+k;
     }
     while(m--){
         int a;
-        long long b,ans = 0;
+        long long b;
         cin >> a >> b;
-        // find max sum that <= b
-        int l = a+1 , r = n,mid;
-        while(l < r){
-            mid = (l+r)/2;
-            long long check =  qs[mid]-qs[a-1] + (mid-a+1)*k;
-            if(check  == b){
-                ans = qs[mid]-qs[a-1];
-                break;
-            }else if(check < b){
-                r = mid;
-            }else{
-                l = mid+1;
-            }
-        }
-        if(ans){
-            cout << ans << "\n";
-        }else{
-            cout << qs[l]-qs[a-1] << "\n";
-        }
-
+        int idx = upper_bound(qs,qs+n+1,qs[a]+b) - qs -1;
+        cout << qs[idx]-qs[a]-(idx-a)*k << "\n";
     }
     return 0;
 }

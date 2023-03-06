@@ -1,19 +1,19 @@
 #include<iostream>
 using namespace std;
 const int md = 100000007;
-int dp[10000001][3] = {{0}};
-
 int main(){
     int n;
     cin >> n;
-    dp[1][0] = 1;
-    dp[1][1] = 1;
-    dp[1][2] = 1;
+    int p0 = 1,p1 = 1,p2 = 1;
+    int d0 = 1,d1 = 1,d2 = 1;
     for(int i = 2;i<=n;i++){
-        dp[i][0] = (dp[i-1][0]%md+dp[i-1][1]%md+dp[i-1][2]%md)%md;
-        dp[i][1] = (dp[i-1][0]%md+dp[i-1][2]%md)%md;
-        dp[i][2] = (dp[i-1][0]%md+dp[i-1][1]%md)%md;
+        d0 = (p0%md+p1%md+p2%md)%md;
+        d1 = (p0%md+p2%md)%md;
+        d2 = (p0%md+p1%md)%md;
+        p0 = d0;
+        p1 = d1;
+        p2 = d2;
     }
-    cout << (dp[n][0]%md+dp[n][1]%md+dp[n][2]%md)%md;
+    cout << (d0%md+d1%md+d2%md)%md;
     return 0;
 }
